@@ -1,0 +1,84 @@
+/*
+  Solution
+  Amirmahdi Saeidmehr
+  AKA pacman456
+  Rating : 898
+  Have a good day !!
+*/
+
+
+#include <bits/stdc++.h>
+#define ll long long int
+
+using namespace std;
+
+
+string s;
+ll needb , needs ,needc;
+ll nb ,ns ,nc;
+ll pb ,ps ,pc;
+ll money;
+
+// Check function for the if in binary search we're using
+
+bool check(ll mid){
+    ll ans=0;
+    if((needb * mid) > nb){
+        ans += ((needb * mid) - nb) * pb;
+    }
+    if((needs * mid) > ns){
+        ans += ((needs * mid) - ns) * ps;
+    }
+    if((needc * mid) > nc){
+        ans += ((needc * mid) - nc) * pc;
+    }
+    if(ans <= money){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+
+int main()
+{
+    // Inputs
+    cin >> s;
+    for(ll i = 0 ; i < s.size();i++){
+        if(s[i] == 'B'){
+            needb++;
+        }
+        else if(s[i] == 'S'){
+            needs++;
+        }
+        else if(s[i] == 'C'){
+            needc++;
+        }
+    }
+    cin >> nb >> ns >> nc;
+    
+    cin >> pb >> ps >> pc;
+    
+    cin >> money;
+
+    // Binary search
+    
+    ll l = 0,r = 1e15;
+    
+    while(r - l > 1){
+        ll mid = (r + l) / 2;
+        
+        if(check(mid)){
+            l = mid;
+        }
+        else{
+            r = mid;
+        }
+    }
+    cout << l;
+    
+    return 0;
+
+    // The End
+}
